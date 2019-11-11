@@ -53,6 +53,7 @@ public class HomeFragment extends Fragment implements GoogleApiClient.OnConnecti
             public void onClick(View view) {
                 Intent intent  = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
                 startActivityForResult(intent,codigo);
+                googleApiClient.connect();
             }
         });
 
@@ -74,10 +75,12 @@ public class HomeFragment extends Fragment implements GoogleApiClient.OnConnecti
     }
 
     private void handlesign(GoogleSignInResult result){
+        System.out.println(result.isSuccess());
         if(result.isSuccess()){
+
             goMainScreen();
         }else {
-
+            System.out.println(result.getStatus());
             Toast.makeText(mContext, "No se pudo iniciar la sesión", Toast.LENGTH_SHORT).show();
         }
     }
